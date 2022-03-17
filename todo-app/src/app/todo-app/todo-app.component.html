@@ -1,0 +1,54 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-lg mx-auto">
+            <h3 class="bg-primary text-white p-3">
+                {{name}}'s List
+            </h3>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" #txtItem (keyup.enter)="addItem(txtItem)">
+                <button class="btn btn-outline-primary" (click)="addItem(txtItem)">Add</button>
+            </div>
+            <div class="form-check mb-3">
+                <input [(ngModel)]="displayAll" type="checkbox" class="form-check-input" name="">
+                <label for="displayAll" class="form-check-label">Show all
+                    </label> 
+            </div>
+            <div class="p-4 mb-2 bg-warning" *ngIf="getItem().length == 0; else showTable">
+                No Elements in the List. You Have Done All Your Jobs.
+            </div>
+            <ng-template #showTable>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getItem(); let i = index;">
+                            <td>{{i + 1}}</td>
+                            <td>{{item.description}}</td>
+                            <td>
+                                <div *ngIf="item.action; else no">Yes</div>
+                                <ng-template #no>No</ng-template>
+                            </td>
+                            <!--<td>{{item.action}}</td>-->
+                            <td>
+                                <input type="checkbox" [(ngModel)]="item.action"  name="" id="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+            <div class="bg-secondary text-white p-2">
+                {{ getCount() }} process completed.
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+
